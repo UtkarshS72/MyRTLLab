@@ -6,7 +6,7 @@ A simple multiply-accumulate unit, built as an exercise in pipelining.
 
 The pipeline has two stages: multiplication and addition.
 
-**Valid signal:** A `valid` input propagates through the pipeline as a shift register, arriving at the output in lockstep with the data it describes. This allows downstream modules to distinguish real results from the garbage values present during pipeline startup.
+**Valid signal:** The `valid` signal is delayed by one cycle so it remains aligned with the pipelined data path. This allows downstream modules to distinguish real results from the garbage values present during pipeline startup. 
 
 **Pipeline register:** The multiply result is stored in an intermediate register between stages. On the next clock edge this feeds into the addition stage.
 
@@ -14,13 +14,16 @@ The pipeline has two stages: multiplication and addition.
 
 ## Synthesis Results (Artix-7 xc7a35tcpg236-1)
 
-| Metric | Value |
-|--------|-------|
-| Fmax | 264 MHz |
-| LUTs | 86 (0.41%) |
-| DSPs | 0 |
+| Metric           |      Value |
+| ---------------- | ---------: |
+| Clock constraint |    100 MHz |
+| WNS              |   6.209 ns |
+| Estimated Fmax   |   ~264 MHz |
+| LUTs             | 86 (0.41%) |
+| DSPs             |          0 |
 
-No DSP blocks were inferred — the 8-bit multiplicand width is small enough that LUT-based implementation is sufficient. Wider operands would typically trigger DSP48 inference.
+
+Timing met comfortably at 100 MHz. No DSP blocks were inferred; for this small 8×8 multiply, LUT-based implementation was sufficient. Wider operands would more likely map to DSP48 blocks.
 
 ## Simulation
 
