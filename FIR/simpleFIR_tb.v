@@ -19,6 +19,25 @@ initial begin
     #50
     rst = 0;
     #50
+    //impulse
+    xn = 1;
+    valid_in = 1;
+    #10
+    xn = 0;
+    #100;
+    // increasing input sequence
+    xn = 1;
+    #10
+    xn = 2;
+    #10
+    xn = 3;
+    #10
+    xn = 4;
+    #10
+    xn = 5;
+    #100;
+    //increasing input sequence with bubble inserted
+    #500
     xn = 1;
     valid_in = 1;
     #10
